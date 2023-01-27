@@ -1,0 +1,20 @@
+.cart-product {
+  display: flex;
+}
+
+.cart-orders:not(:first-child) {
+  padding-top: 50px;
+
+}
+
+.cart-product-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.cart-product-image img {
+  width: 120px;
+  height: 120px;
+}
