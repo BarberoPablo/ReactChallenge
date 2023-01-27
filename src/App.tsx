@@ -20,7 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           {/* SACAR ESTA RUTA */}
-          <Route path="/cart" element={<Cart items={3} />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </Container>
     </>
