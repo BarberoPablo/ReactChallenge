@@ -2,11 +2,6 @@
   display: flex;
 }
 
-.cart-orders:not(:first-child) {
-  padding-top: 50px;
-
-}
-
 .cart-product-image {
   display: flex;
   flex-direction: column;

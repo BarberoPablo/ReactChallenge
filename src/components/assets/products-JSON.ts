@@ -26,3 +26,37 @@ export const products = [
     image: "https://www.tradeinn.com/f/13810/138100737/kruskis-camiseta-manga-corta-home.jpg",
   },
 ];
+
+export interface RecommendedProducts {
+  image: string;
+  name: string;
+  priceRange: string;
+  minimum: number;
+}
+
+export const recommendedProducts = [
+  {
+    image: "",
+    name: "Unidex Short Sleeve T-Shirt",
+    priceRange: "$10 - $24",
+    minimum: 24,
+  },
+  {
+    image: "",
+    name: "Unidex Short Sleeve T-Shirt",
+    priceRange: "$10 - $24",
+    minimum: 24,
+  },
+  {
+    image: "",
+    name: "Unidex Short Sleeve T-Shirt",
+    priceRange: "$10 - $24",
+    minimum: 24,
+  },
+  {
+    image: "",
+    name: "Unidex Short Sleeve T-Shirt",
+    priceRange: "$10 - $24",
+    minimum: 24,
+  },
+];

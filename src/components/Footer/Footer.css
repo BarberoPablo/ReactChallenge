@@ -1,0 +1,19 @@
+.footer-container {
+  background-color: #E6E8E9;
+  width: 1177px;
+  height: 256px;
+}
+
+.footer-first-column>img {
+  width: 172px;
+  height: 48px;
+}
+
+.footer-icon {
+  background-color: "#535C67";
+  padding: "7px";
+  border-radius: "50%";
+  width: "20px";
+  height: "20px";
+  color: "white";
+}

@@ -1,7 +1,7 @@
 import React from "react";
-import { Grid, Box, styled, Paper, Button, Divider, Container } from "@mui/material";
+import { Box, Divider, Grid } from "@mui/material";
 import "./CartProduct.css";
-import { CartProductProps } from "./products-JSON";
+import { CartProductProps } from "../assets/products-JSON";
 
 export const CartProduct: React.FC<CartProductProps> = ({
   name,
@@ -27,6 +27,11 @@ export const CartProduct: React.FC<CartProductProps> = ({
                 {item.name}: {item.type}
               </li>
             ))}
+          <Grid container alignItems="center" className="edit-remove-pack">
+            {/* buttons instead of h5 */}
+            <h5> Edit pack</h5> <Divider variant="middle" orientation="vertical" flexItem />{" "}
+            <h5> Remove</h5>
+          </Grid>
         </ul>
       </Box>
 

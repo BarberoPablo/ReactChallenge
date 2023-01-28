@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { Container } from "@mui/material";
-import { NavBar } from "./components/NavBar";
-import { Home } from "./components/Home";
-import { Cart } from "./components/Cart";
+import { NavBar } from "./components/NavBar/NavBar";
+import { Home } from "./components/Home/Home";
+import { Cart } from "./components/Cart/Cart";
+import { Footer } from "./components/Footer/Footer";
 import "./App.css";
 //NavBar
 //Conteiner
@@ -23,6 +24,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </Container>
+      <Footer />
     </>
   );
 }
