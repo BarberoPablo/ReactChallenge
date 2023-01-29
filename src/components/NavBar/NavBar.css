@@ -13,3 +13,7 @@
   /*   margin: 100px;
  */
 }
+
+.nav-image {
+  display: flex;
+}
