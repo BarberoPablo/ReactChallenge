@@ -10,8 +10,9 @@ export const RecommendedSection = () => {
       <h1>You might also like</h1>
       <Box className="recommended-products">
         {recommendedProducts.length &&
-          recommendedProducts.map((product) => (
+          recommendedProducts.map((product, index) => (
             <SuggestedProduct
+              key={product.name + index}
               image={product.image}
               name={product.name}
               priceRange={product.priceRange}

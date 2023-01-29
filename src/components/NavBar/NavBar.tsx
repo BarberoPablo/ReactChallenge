@@ -13,6 +13,8 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./NavBar.css";
+/* import swagCharm from "../assets/swagCharm.svg"; */
+import swagCharm from "../../../public/swagcharm.png";
 
 export function NavBar() {
   const [menu, setMenu] = useState([
@@ -28,7 +30,9 @@ export function NavBar() {
     <AppBar sx={{ width: "100%", backgroundColor: "#091625" }} position="static">
       <Toolbar className="search-bar">
         <Typography variant="h6" component="div" sx={{ marginLeft: "60px", flexGrow: 0.1 }}>
-          Searchbar
+          <div className="nav-image">
+            <img src={swagCharm} />
+          </div>
         </Typography>
 
         <div

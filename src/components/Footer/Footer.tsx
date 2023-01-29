@@ -12,9 +12,10 @@ import {
   YouTube,
 } from "@mui/icons-material/";
 import "./Footer.css";
+import swagCharm from "../assets/swagCharm.svg";
 
 export const Footer = () => {
-  const [languaje, setLanguaje] = React.useState("Englisgh");
+  const [languaje, setLanguaje] = React.useState("English");
   const [value, setValue] = React.useState(0);
   const iconStyles = {
     backgroundColor: "#535C67",
@@ -39,7 +40,7 @@ export const Footer = () => {
       }}
     >
       <Box className="footer-first-column">
-        <img src="" />
+        <img src={swagCharm} />
         <p>
           We sell custom products for all your needs. Packs and bulks products that you will enjoy
         </p>
