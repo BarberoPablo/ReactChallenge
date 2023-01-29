@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Divider } from "@mui/material";
 import { Button } from "@mui/material-next";
 import { products } from "../assets/products-JSON";
@@ -8,7 +8,20 @@ import "./Cart.css";
 
 export const Cart = () => {
   const quantity = products.reduce((productA, productB) => productA + productB.quantity, 0);
-  const totalPrice = products.reduce((productA, productB) => productA + productB.price, 0);
+  const [allProducts, setAllProducts] = useState(products);
+  const [totalPrice, setTotalPrice] = useState(calculateTotalPrice());
+
+  useEffect(() => {
+    const newTotalPrice = calculateTotalPrice();
+    setTotalPrice(newTotalPrice);
+  }, [allProducts]);
+
+  function calculateTotalPrice() {
+    return allProducts.reduce(
+      (productA, productB) => productA + productB.price * productB.quantity,
+      0
+    );
+  }
 
   return (
     <Box>
@@ -17,7 +30,7 @@ export const Cart = () => {
           <h1>Your cart ({quantity})</h1>
 
           {products?.length &&
-            products.map((product) => {
+            products.map((product, index) => {
               return (
                 <Box key={product.name}>
                   <CartProduct
@@ -26,6 +39,8 @@ export const Cart = () => {
                     content={product.content}
                     price={product.price}
                     image={product.image}
+                    index={index}
+                    update={setAllProducts}
                   />
                   <Divider />
                 </Box>
@@ -39,7 +54,7 @@ export const Cart = () => {
             <h3> Number of items</h3> <h3>{quantity}</h3>
           </Box>
           <Box>
-            <h3>Total:</h3> <h1>{totalPrice}</h1>
+            <h3>Total:</h3> <h1>{totalPrice.toFixed(2)}</h1>
           </Box>
 
           <Button
