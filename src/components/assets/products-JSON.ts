@@ -4,6 +4,8 @@ export interface CartProductProps {
   content?: Array<{ name: string; type: string }>;
   price: number;
   image: string;
+  index: number;
+  update: Function;
 }
 
 export const products = [
