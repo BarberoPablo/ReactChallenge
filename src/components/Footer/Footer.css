@@ -1,12 +1,30 @@
 .footer-container {
   background-color: #E6E8E9;
-  width: 1177px;
-  height: 256px;
+  margin-top: 100px;
 }
 
-.footer-first-column>img {
+.first-footer-columns,
+.second-footer-column {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 60px;
+
+}
+
+.first-column,
+.footer-column {
+  width: 264px;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.footer-column>img {
   width: 172px;
   height: 48px;
+}
+
+.second-footer-column {
+  align-items: center;
 }
 
 .footer-icon {
@@ -16,4 +34,9 @@
   width: "20px";
   height: "20px";
   color: "white";
+}
+
+.footer-title {
+  font-weight: 700;
+  font-size: 16px;
 }

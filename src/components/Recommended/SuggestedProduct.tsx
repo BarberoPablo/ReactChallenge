@@ -12,7 +12,7 @@ export const SuggestedProduct: React.FC<RecommendedProducts> = ({
   return (
     <Box className="suggested-product-container">
       <img src={image} />
-      <span>{name}</span>
+      <h3>{name}</h3>
       <Box className="suggested-product-subtitle">
         <span className="suggested-product-priceRange">{priceRange}</span>
         <span className="suggested-product-minimum">Minimum: {minimum}</span>

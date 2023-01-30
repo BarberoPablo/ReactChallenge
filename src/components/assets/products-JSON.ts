@@ -1,3 +1,5 @@
+import longShirt from "../assets/long-shirt.png";
+
 export interface CartProductProps {
   name: string;
   quantity: number;
@@ -38,26 +40,26 @@ export interface RecommendedProducts {
 
 export const recommendedProducts = [
   {
-    image: "",
-    name: "Unidex Short Sleeve T-Shirt",
+    image: longShirt,
+    name: "Unisex Short Sleeve T-Shirt",
     priceRange: "$10 - $24",
     minimum: 24,
   },
   {
-    image: "",
-    name: "Unidex Short Sleeve T-Shirt",
+    image: longShirt,
+    name: "Unisex Short Sleeve T-Shirt",
     priceRange: "$10 - $24",
     minimum: 24,
   },
   {
-    image: "",
-    name: "Unidex Short Sleeve T-Shirt",
+    image: longShirt,
+    name: "Unisex Short Sleeve T-Shirt",
     priceRange: "$10 - $24",
     minimum: 24,
   },
   {
-    image: "",
-    name: "Unidex Short Sleeve T-Shirt",
+    image: longShirt,
+    name: "Unisex Short Sleeve T-Shirt",
     priceRange: "$10 - $24",
     minimum: 24,
   },

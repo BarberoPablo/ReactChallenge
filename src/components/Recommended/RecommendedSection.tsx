@@ -6,7 +6,7 @@ import "./RecommendedSection.css";
 
 export const RecommendedSection = () => {
   return (
-    <>
+    <Box className="recommended-products-container">
       <h1>You might also like</h1>
       <Box className="recommended-products">
         {recommendedProducts.length &&
@@ -20,6 +20,6 @@ export const RecommendedSection = () => {
             />
           ))}
       </Box>
-    </>
+    </Box>
   );
 };

@@ -14,7 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./NavBar.css";
 /* import swagCharm from "../assets/swagCharm.svg"; */
-import swagCharm from "../../../public/swagcharm.png";
+import swagCharm from "../assets/swagcharm.png";
 
 export function NavBar() {
   const [menu, setMenu] = useState([
@@ -35,24 +35,23 @@ export function NavBar() {
           </div>
         </Typography>
 
-        <div
-          style={{ backgroundColor: "#FFFFFF", borderRadius: "20px", border: "1px solid inherit" }}
-        >
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+        <div className="navbar-input">
+          <IconButton type="button" sx={{ p: "5px", fontFamily: "inherit" }} aria-label="search">
             <SearchIcon />
           </IconButton>
-
-          <InputBase className="navbar-input" sx={{ ml: 30 }} placeholder="Search products" />
+          <InputBase sx={{}} placeholder="Search products" />
         </div>
 
-        <Stack direction="row" spacing={2}>
-          <Button color="inherit">
-            <AccountCircleIcon /> Sign in
-          </Button>
-          <Badge badgeContent={8} color="error">
-            <Button color="inherit">C</Button>
-          </Badge>
-        </Stack>
+        <div className="navbar-buttons">
+          <Stack direction="row" spacing={2}>
+            <Button color="inherit">
+              <AccountCircleIcon /> Sign in
+            </Button>
+            <Badge badgeContent={8} color="error">
+              <Button color="inherit">C</Button>
+            </Badge>
+          </Stack>
+        </div>
       </Toolbar>
 
       <Toolbar className="select-menu-container">

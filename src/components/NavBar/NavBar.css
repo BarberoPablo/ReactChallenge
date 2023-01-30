@@ -1,19 +1,22 @@
+.nav-image {
+  display: flex;
+}
+
 .search-bar {
   background-color: #091625;
-  /*   margin: 0 100px;
- */
 }
 
 .select-menu-container {
   background-color: #E6E8E9;
-
 }
 
-.select-menu {
-  /*   margin: 100px;
- */
+.navbar-input {
+  width: 696px;
+  background-color: #FFFFFF;
+  border-radius: 20px;
 }
 
-.nav-image {
-  display: flex;
+.navbar-buttons {
+  position: absolute;
+  right: 10px;
 }
