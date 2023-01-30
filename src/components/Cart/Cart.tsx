@@ -7,13 +7,13 @@ import { RecommendedSection } from "../Recommended/RecommendedSection";
 import "./Cart.css";
 
 export const Cart = () => {
-  const quantity = products.reduce((productA, productB) => productA + productB.quantity, 0);
   const [allProducts, setAllProducts] = useState(products);
+  const [quantity, setQuantity] = useState(calculateTotalProducts());
   const [totalPrice, setTotalPrice] = useState(calculateTotalPrice());
 
   useEffect(() => {
-    const newTotalPrice = calculateTotalPrice();
-    setTotalPrice(newTotalPrice);
+    setQuantity(calculateTotalProducts());
+    setTotalPrice(calculateTotalPrice());
   }, [allProducts]);
 
   function calculateTotalPrice() {
@@ -23,8 +23,13 @@ export const Cart = () => {
     );
   }
 
+  function calculateTotalProducts() {
+    const rta = allProducts.reduce((productA, productB) => productA + Number(productB.quantity), 0);
+    return rta;
+  }
+
   return (
-    <Box>
+    <Box className="cart-main-container">
       <Box className="cart-container">
         <Box className="cart-orders">
           <h1>Your cart ({quantity})</h1>
