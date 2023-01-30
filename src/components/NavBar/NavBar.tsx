@@ -10,48 +10,48 @@ import {
   Badge,
   Box,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import "./NavBar.css";
-/* import swagCharm from "../assets/swagCharm.svg"; */
-import swagCharm from "../assets/swagcharm.png";
+import { Search, ShoppingCart, AccountCircle } from "@mui/icons-material/";
+import { navbarInterface } from "../assets/products-JSON";
 
-export function NavBar() {
-  const [menu, setMenu] = useState([
-    "All products",
-    "Packaging",
-    "Drinkware",
-    "Apparel",
-    "Notebooks",
-    "Backpacks",
-  ]);
+import swagCharm from "../assets/swagcharm.png";
+import "./NavBar.css";
+
+export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
+  const menu = ["All products", "Packaging", "Drinkware", "Apparel", "Notebooks", "Backpacks"];
 
   return (
-    <AppBar sx={{ width: "100%", backgroundColor: "#091625" }} position="static">
+    <AppBar className="navbar-container" position="static">
       <Toolbar className="search-bar">
         <Typography variant="h6" component="div" sx={{ marginLeft: "60px", flexGrow: 0.1 }}>
-          <div className="nav-image">
+          <Box className="nav-image">
             <img src={swagCharm} />
-          </div>
+          </Box>
         </Typography>
 
-        <div className="navbar-input">
+        <Box className="navbar-input">
           <IconButton type="button" sx={{ p: "5px", fontFamily: "inherit" }} aria-label="search">
-            <SearchIcon />
+            <Search />
           </IconButton>
-          <InputBase sx={{}} placeholder="Search products" />
-        </div>
+          <InputBase placeholder="Search products" />
+        </Box>
 
-        <div className="navbar-buttons">
+        <Box className="navbar-buttons" sx={{ marginRight: "60px" }}>
           <Stack direction="row" spacing={2}>
-            <Button color="inherit">
-              <AccountCircleIcon /> Sign in
+            <Button
+              className="navbar-button"
+              color="inherit"
+              style={{ textTransform: "capitalize" }}
+            >
+              <AccountCircle /> Sign in
             </Button>
-            <Badge badgeContent={8} color="error">
-              <Button color="inherit">C</Button>
+            <Badge badgeContent={totalProducts} color="error">
+              <Button color="inherit" style={{ textTransform: "capitalize" }}>
+                <ShoppingCart />
+                Cart
+              </Button>
             </Badge>
           </Stack>
-        </div>
+        </Box>
       </Toolbar>
 
       <Toolbar className="select-menu-container">
@@ -71,4 +71,4 @@ export function NavBar() {
       </Toolbar>
     </AppBar>
   );
-}
+};

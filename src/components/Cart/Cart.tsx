@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Box, Divider } from "@mui/material";
 import { Button } from "@mui/material-next";
-import { products } from "../assets/products-JSON";
+import { products, cartInterface } from "../assets/products-JSON";
 import { CartProduct } from "./CartProduct";
 import { RecommendedSection } from "../Recommended/RecommendedSection";
 import "./Cart.css";
 
-export const Cart = () => {
+export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
   const [allProducts, setAllProducts] = useState(products);
   const [quantity, setQuantity] = useState(calculateTotalProducts());
   const [totalPrice, setTotalPrice] = useState(calculateTotalPrice());
 
   useEffect(() => {
-    setQuantity(calculateTotalProducts());
+    const newTotalProducts = calculateTotalProducts();
+    setQuantity(newTotalProducts);
+    updateCart(newTotalProducts);
+
     setTotalPrice(calculateTotalPrice());
   }, [allProducts]);
 

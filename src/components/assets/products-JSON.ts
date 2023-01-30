@@ -1,5 +1,11 @@
 import longShirt from "../assets/long-shirt.png";
 
+export interface navbarInterface {
+  totalProducts: number;
+}
+export interface cartInterface {
+  updateCart: Function;
+}
 export interface CartProductProps {
   name: string;
   quantity: number;
