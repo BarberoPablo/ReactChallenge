@@ -66,10 +66,7 @@ export const CartProduct: React.FC<CartProductProps> = ({
 
   const handleRemove = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.preventDefault();
-    console.log("REMOVE");
-    console.log(code);
     storage.removeItem(code);
-    //Avisarle al resto
     getCartProducts();
   };
 
