@@ -1,5 +1,6 @@
 import longShirt from "../assets/long-shirt.png";
 import shirt from "../assets/shirt.png";
+import backpack from "../assets/backpack.png";
 import christmas from "../assets/christmas.png";
 export interface navbarInterface {
   totalProducts: number;
@@ -40,22 +41,28 @@ export const products = [
       { name: "Basic bottle", type: "Blue" },
     ],
 
-    price: 71.2,
+    price: 309.99,
     image: christmas,
     code: "p001",
     stock: 5,
   },
   {
     name: "Bascit T-Shirt",
-    /* quantity: 10, */
-    price: 71.2,
+    price: 14.99,
     image: shirt,
     code: "s001",
     stock: 19,
   },
+  {
+    name: "School Backpack",
+    price: 99.9,
+    image: backpack,
+    code: "b001",
+    stock: 3,
+  },
 ];
 
-export const codes = ["p001", "s001", "s002", "s003"];
+export const codes = ["p001", "s001", "b001", "s003"];
 
 export interface RecommendedProducts {
   image: string;
