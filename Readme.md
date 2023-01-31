@@ -1,10 +1,10 @@
-This project is a React Challenge, the expected features were:
+## This project is a React Challenge, the expected features were:
 
 - Should be able to remove items from Cart.
 - Should be able to edit quantity of items.
 - Should be able to display updated total price based on items in cart.
 
-Extras:
+## Extras:
 
 - Home page with products to add to cart.
 - When adding a product to the car, this shows a red dot with the amount of "diferent items"
