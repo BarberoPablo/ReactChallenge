@@ -14,14 +14,14 @@ function App() {
   };
 
   return (
-    <>
+    <div className="app-container">
       <NavBar totalProducts={totalProducts} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart updateCart={updateCart} />} />
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

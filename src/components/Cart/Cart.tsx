@@ -9,15 +9,24 @@ import "./Cart.css";
 export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
   const [allProducts, setAllProducts] = useState(products);
   const [quantity, setQuantity] = useState(calculateTotalProducts());
-  const [totalPrice, setTotalPrice] = useState(calculateTotalPrice());
+  const [totalPrice, setTotalPrice] = useState(parseNumber(calculateTotalPrice()));
+
+  function parseNumber(number: number): string {
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "USD",
+    }).format(number);
+  }
 
   useEffect(() => {
-    const newTotalProducts = calculateTotalProducts();
-    setQuantity(newTotalProducts);
-    updateCart(newTotalProducts);
-
-    setTotalPrice(calculateTotalPrice());
+    setTotalPrice(parseNumber(calculateTotalPrice()));
   }, [allProducts]);
+
+  useEffect(() => {
+    console.log("UEPA");
+    setQuantity(allProducts.length);
+    updateCart(allProducts.length);
+  }, [allProducts.length]);
 
   function calculateTotalPrice() {
     return allProducts.reduce(
@@ -27,15 +36,20 @@ export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
   }
 
   function calculateTotalProducts() {
-    const rta = allProducts.reduce((productA, productB) => productA + Number(productB.quantity), 0);
-    return rta;
+    const totalProducts = allProducts.reduce(
+      (productA, productB) => productA + Number(productB.quantity),
+      0
+    );
+    return totalProducts;
   }
 
   return (
     <Box className="cart-main-container">
       <Box className="cart-container">
         <Box className="cart-orders">
-          <h1>Your cart ({quantity})</h1>
+          <span className="cart-title">
+            <b>Your cart ({quantity})</b>
+          </span>
 
           {products?.length &&
             products.map((product, index) => {
@@ -56,27 +70,28 @@ export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
             })}
         </Box>
 
-        <Box className="cart-summary">
-          <h1>Order Summary </h1>
-          <Box>
-            <h3> Number of items</h3> <h3>{quantity}</h3>
-          </Box>
-          <Box>
-            <h3>Total:</h3> <h1>{totalPrice.toFixed(2)}</h1>
+        <Box className="order-summary-container">
+          <span className="order-summary-title">Order Summary</span>
+
+          <Box className="order-summary-quantity">
+            <span> Number of items</span> <span style={{ textAlign: "right" }}>{quantity}</span>
           </Box>
 
-          <Button
-            color="secondary"
-            disabled={false}
-            variant="filled"
-            sx={{ backgroundColor: "#3A4451" }}
-          >
-            Proceed to Checkout
-          </Button>
+          <Divider style={{ marginTop: "15px" }} />
 
-          <Button color="secondary" disabled={false} variant="outlined">
-            Continue shopping
-          </Button>
+          <Box className="order-summary-total-container">
+            <span className="order-summary-total">Total:</span>
+            <span className="order-summary-price">{totalPrice}</span>
+          </Box>
+
+          <Box className="order-summary-buttons">
+            <Button variant="filled" sx={{ backgroundColor: "#3A4451" }}>
+              Proceed to Checkout
+            </Button>
+            <Button style={{ border: "2px solid #091625", marginTop: "12px", color: "#091625" }}>
+              Continue shopping
+            </Button>
+          </Box>
         </Box>
       </Box>
 
