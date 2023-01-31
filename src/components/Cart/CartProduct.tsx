@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Divider, Grid, NativeSelect } from "@mui/material";
+import { DeleteForever } from "@mui/icons-material/";
 import "./CartProduct.css";
 import { CartProductProps } from "../assets/products-JSON";
 
@@ -13,6 +14,15 @@ export const CartProduct: React.FC<CartProductProps> = ({
   update,
 }) => {
   const [newQuantity, setNewQuantity] = useState<number>(Number(quantity));
+  const formattedPrice = parseNumber(price);
+  const formattedTotal = parseNumber(newQuantity * price);
+
+  function parseNumber(number: number) {
+    return Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "USD",
+    }).format(number);
+  }
 
   const handleNewQuantity = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
@@ -53,30 +63,56 @@ export const CartProduct: React.FC<CartProductProps> = ({
     <Box className="cart-product">
       <Box className="cart-product-image">
         <img src={image} alt="Product image" />
-        {content?.length && <h4>PACK</h4>}
+        {content?.length && <span>PACK</span>}
       </Box>
 
       <Box className="cart-product-info">
         <h3>{name}</h3>
-        <h4>Quantity: {quantityHandler()}</h4>
-        <ul>
+        <Box className="cart-product-quantity">
+          <span>Quantity: </span>
+          <span style={{ marginLeft: "5px", marginTop: "-3px" }}>{quantityHandler()}</span>
+        </Box>
+
+        <ul className="cart-product-content">
           {content?.length &&
             content.map((item, index) => (
               <li key={index}>
-                {item.name}: {item.type}
+                <span style={{ fontSize: "14px" }}>
+                  <b>{item.name}: </b>
+                </span>
+                <span style={{ color: "#A8AEB3" }}>{`(${item.type})`}</span>
               </li>
             ))}
-          <Grid container alignItems="center" className="edit-remove-pack">
-            {/* buttons instead of h5 */}
-            <h5> Edit pack</h5> <Divider variant="middle" orientation="vertical" flexItem />{" "}
-            <h5> Remove</h5>
-          </Grid>
         </ul>
+
+        <Box className="edit-remove-pack-container">
+          {/* buttons instead of h5 */}
+          {content?.length ? (
+            <Box className="edit-pack">
+              <span> Edit pack </span>
+
+              <Divider
+                className="edit-remove-pack-divider"
+                variant="middle"
+                orientation="vertical"
+                flexItem
+              />
+
+              <span className="remove-pack">Remove</span>
+            </Box>
+          ) : (
+            <span className="remove-product">
+              <DeleteForever /> Remove
+            </span>
+          )}
+        </Box>
       </Box>
 
-      <Box>
-        <h3>${price}</h3>
-        <h3>Total: ${(newQuantity * price).toFixed(2)}</h3>
+      <Box className="cart-product-value-container">
+        <Box className="cart-product-value">
+          <h3>{formattedPrice}</h3>
+          <h3>Total: {formattedTotal}</h3>
+        </Box>
       </Box>
     </Box>
   );

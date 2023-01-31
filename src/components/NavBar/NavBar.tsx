@@ -20,7 +20,7 @@ export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
   const menu = ["All products", "Packaging", "Drinkware", "Apparel", "Notebooks", "Backpacks"];
 
   return (
-    <AppBar className="navbar-container" position="static">
+    <AppBar position="static" sx={{ boxShadow: 0 }}>
       <Toolbar className="search-bar">
         <Typography variant="h6" component="div" sx={{ marginLeft: "60px", flexGrow: 0.1 }}>
           <Box className="nav-image">
@@ -63,7 +63,16 @@ export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
         >
           {menu.length &&
             menu.map((section) => (
-              <Button key={section} className="menu-button">
+              <Button
+                key={section}
+                className="navbar-button"
+                style={{
+                  fontFamily: "Open Sans",
+                  textTransform: "capitalize",
+                  fontSize: "15px",
+                  color: "#535C67",
+                }}
+              >
                 {section}
               </Button>
             ))}

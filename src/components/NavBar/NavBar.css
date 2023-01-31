@@ -1,8 +1,13 @@
 .nav-image {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .search-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px;
   background-color: #091625;
 }
 

@@ -1,5 +1,6 @@
 import longShirt from "../assets/long-shirt.png";
-
+import shirt from "../assets/shirt.png";
+import christmas from "../assets/christmas.png";
 export interface navbarInterface {
   totalProducts: number;
 }
@@ -27,13 +28,13 @@ export const products = [
     ],
 
     price: 71.2,
-    image: "https://iris-house.org/wp-content/uploads/2015/09/xmasbox_BIG.jpg",
+    image: christmas,
   },
   {
     name: "Bascit T-Shirt",
     quantity: 10,
     price: 71.2,
-    image: "https://www.tradeinn.com/f/13810/138100737/kruskis-camiseta-manga-corta-home.jpg",
+    image: shirt,
   },
 ];
 

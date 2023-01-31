@@ -7,7 +7,9 @@ import "./RecommendedSection.css";
 export const RecommendedSection = () => {
   return (
     <Box className="recommended-products-container">
-      <h1>You might also like</h1>
+      <Box className="recommended-products-title">
+        <span>You might also like</span>
+      </Box>
       <Box className="recommended-products">
         {recommendedProducts.length &&
           recommendedProducts.map((product, index) => (

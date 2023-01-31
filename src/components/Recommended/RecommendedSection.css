@@ -1,5 +1,5 @@
 .recommended-products-container {
-  margin: 0 60px;
+  margin: 0 92px;
   max-width: 100%;
 }
 
@@ -9,4 +9,10 @@
   align-items: center;
   width: 100%;
   max-width: 100%;
+}
+
+.recommended-products-title {
+  font-weight: 700;
+  font-size: 24px;
+  padding-bottom: 24px;
 }

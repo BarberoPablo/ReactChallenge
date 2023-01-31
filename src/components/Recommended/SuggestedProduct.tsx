@@ -12,10 +12,23 @@ export const SuggestedProduct: React.FC<RecommendedProducts> = ({
   return (
     <Box className="suggested-product-container">
       <img src={image} />
-      <h3>{name}</h3>
+      <span style={{ fontWeight: "700", fontSize: "16px", lineHeight: "16px" }}>{name}</span>
       <Box className="suggested-product-subtitle">
-        <span className="suggested-product-priceRange">{priceRange}</span>
-        <span className="suggested-product-minimum">Minimum: {minimum}</span>
+        <span style={{ width: "100%", fontWeight: "600", fontSize: "15px", lineHeight: "16px" }}>
+          {priceRange}
+        </span>
+        <span
+          style={{
+            width: "100%",
+            fontWeight: "400",
+            fontSize: "14px",
+            lineHeight: "16px",
+            textAlign: "right",
+            paddingRight: "100px",
+          }}
+        >
+          Minimum: {minimum}
+        </span>
       </Box>
     </Box>
   );

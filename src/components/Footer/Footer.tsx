@@ -1,31 +1,37 @@
 import React from "react";
-import { Box, FormControl, Select, SelectChangeEvent, MenuItem, InputLabel } from "@mui/material/";
-import {
-  Settings,
-  Call,
-  FacebookRounded,
-  Twitter,
-  Instagram,
-  LinkedIn,
-  YouTube,
-} from "@mui/icons-material/";
+import { Box, Select, NativeSelect } from "@mui/material/";
+import { Call, FacebookRounded, Twitter, Instagram, LinkedIn, YouTube } from "@mui/icons-material/";
 import "./Footer.css";
 import swagCharm from "../assets/swagCharm.svg";
 
 export const Footer = () => {
-  const [languaje, setLanguaje] = React.useState("English");
-  const [value, setValue] = React.useState(0);
+  const languajes = ["English", "Spanish"];
+  const countries = ["United States", "Argentina"];
+
   const iconStyles = {
     backgroundColor: "#535C67",
     padding: "7px",
+    marginLeft: "7px",
     borderRadius: "50%",
     width: "20px",
     height: "20px",
     color: "white",
   };
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setLanguaje(event.target.value);
+  const countryHandler = (colection: Array<any>) => {
+    return (
+      <Box>
+        <NativeSelect>
+          {colection.map((country: string) => {
+            return (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            );
+          })}
+        </NativeSelect>
+      </Box>
+    );
   };
 
   return (
@@ -40,20 +46,13 @@ export const Footer = () => {
             <Call />
             <b>+1-202-555-0129</b>
           </p>
-          <Box
-            sx={{
-              "& > :not(style)": {
-                m: 2,
-              },
-            }}
-          >
+          <Box className="footer-all-icons">
             <FacebookRounded sx={{ width: "38px", height: "38px", color: "#535C67" }} />
             <Twitter className="footer-icon" sx={iconStyles} />
             <Instagram className="footer-icon" sx={iconStyles} />
             <LinkedIn className="footer-icon" sx={iconStyles} />
             <YouTube className="footer-icon" sx={iconStyles} />
           </Box>
-          <Settings />
         </Box>
 
         <Box className="footer-column">
@@ -80,19 +79,9 @@ export const Footer = () => {
       </Box>
       <Box className="second-footer-column">
         <p>© 2022 Customer Products. All rights reserved.</p>
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-          <Select
-            defaultValue={"dfhfdhhfd"}
-            value={languaje}
-            onChange={handleChange}
-            displayEmpty
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-          >
-            <MenuItem value="English">English</MenuItem>
-            <MenuItem value="Spanish">Spanish</MenuItem>
-          </Select>
-        </FormControl>
+
+        <Box className="footer-region">Region: {countryHandler(countries)}</Box>
+        <Box className="footer-region">Languaje: {countryHandler(languajes)}</Box>
       </Box>
     </Box>
   );
