@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import { Box, Divider, Grid, NativeSelect } from "@mui/material";
+import { Box, Divider, NativeSelect } from "@mui/material";
 import { DeleteForever } from "@mui/icons-material/";
 import "./CartProduct.css";
 import { CartProductProps } from "../assets/products-JSON";
+
+export function parseNumber(number: number) {
+  return Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "USD",
+  }).format(number);
+}
 
 export const CartProduct: React.FC<CartProductProps> = ({
   name,
@@ -12,22 +19,20 @@ export const CartProduct: React.FC<CartProductProps> = ({
   image,
   index,
   update,
+  stock,
+  code,
+  getCartProducts,
 }) => {
   const [newQuantity, setNewQuantity] = useState<number>(Number(quantity));
   const formattedPrice = parseNumber(price);
-  const formattedTotal = parseNumber(newQuantity * price);
-
-  function parseNumber(number: number) {
-    return Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "USD",
-    }).format(number);
-  }
+  const [formattedTotal, setFormattedTotal] = useState(parseNumber(newQuantity * price));
+  const storage = window.localStorage;
 
   const handleNewQuantity = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-
     setNewQuantity(Number(e.target.value));
+    setFormattedTotal(parseNumber(Number(e.target.value) * price));
+
     update((prevState: Array<Object>) =>
       prevState.map((item, ind) => {
         return ind === index ? { ...item, quantity: e.target.value } : item;
@@ -47,7 +52,7 @@ export const CartProduct: React.FC<CartProductProps> = ({
           onChange={handleNewQuantity}
         >
           {quantity > 0 &&
-            [...Array(quantity)].map((max: number, index: number) => {
+            [...Array(stock)].map((max: number, index: number) => {
               return (
                 <option key={index + "quantity"} value={index + 1}>
                   {index + 1}
@@ -57,6 +62,15 @@ export const CartProduct: React.FC<CartProductProps> = ({
         </NativeSelect>
       </Box>
     );
+  };
+
+  const handleRemove = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
+    e.preventDefault();
+    console.log("REMOVE");
+    console.log(code);
+    storage.removeItem(code);
+    //Avisarle al resto
+    getCartProducts();
   };
 
   return (
@@ -98,10 +112,12 @@ export const CartProduct: React.FC<CartProductProps> = ({
                 flexItem
               />
 
-              <span className="remove-pack">Remove</span>
+              <span className="remove-pack" onClick={(e) => handleRemove(e)}>
+                Remove
+              </span>
             </Box>
           ) : (
-            <span className="remove-product">
+            <span className="remove-product" onClick={(e) => handleRemove(e)}>
               <DeleteForever /> Remove
             </span>
           )}

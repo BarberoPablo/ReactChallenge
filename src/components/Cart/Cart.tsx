@@ -1,15 +1,43 @@
 import React, { useState, useEffect } from "react";
 import { Box, Divider } from "@mui/material";
 import { Button } from "@mui/material-next";
-import { products, cartInterface } from "../assets/products-JSON";
+import { cartInterface, codes, ProductLayout } from "../assets/products-JSON";
 import { CartProduct } from "./CartProduct";
 import { RecommendedSection } from "../Recommended/RecommendedSection";
 import "./Cart.css";
 
 export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
-  const [allProducts, setAllProducts] = useState(products);
+  const storage = window.localStorage;
+  const [allProducts, setAllProducts] = useState<Array<ProductLayout>>([]);
   const [quantity, setQuantity] = useState(calculateTotalProducts());
-  const [totalPrice, setTotalPrice] = useState(parseNumber(calculateTotalPrice()));
+  const [totalPrice, setTotalPrice] = useState("");
+
+  useEffect(() => {
+    if (!allProducts.length) {
+      getCartProducts();
+    }
+  }, []);
+
+  useEffect(() => {
+    setTotalPrice(parseNumber(calculateTotalPrice()));
+  }, [allProducts]);
+
+  useEffect(() => {
+    setQuantity(allProducts.length);
+    updateCart(allProducts.length);
+  }, [allProducts.length]);
+
+  function getCartProducts() {
+    let products: Array<ProductLayout> = [];
+
+    codes.forEach((code) => {
+      const product = storage.getItem(code);
+      if (product) {
+        products.push(JSON.parse(product));
+      }
+    });
+    setAllProducts(products);
+  }
 
   function parseNumber(number: number): string {
     return new Intl.NumberFormat("en-IN", {
@@ -18,21 +46,12 @@ export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
     }).format(number);
   }
 
-  useEffect(() => {
-    setTotalPrice(parseNumber(calculateTotalPrice()));
-  }, [allProducts]);
-
-  useEffect(() => {
-    console.log("UEPA");
-    setQuantity(allProducts.length);
-    updateCart(allProducts.length);
-  }, [allProducts.length]);
-
   function calculateTotalPrice() {
-    return allProducts.reduce(
+    const rta = allProducts.reduce(
       (productA, productB) => productA + productB.price * productB.quantity,
       0
     );
+    return rta;
   }
 
   function calculateTotalProducts() {
@@ -47,12 +66,10 @@ export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
     <Box className="cart-main-container">
       <Box className="cart-container">
         <Box className="cart-orders">
-          <span className="cart-title">
-            <b>Your cart ({quantity})</b>
-          </span>
+          <span className="cart-title">Your cart ({quantity})</span>
 
-          {products?.length &&
-            products.map((product, index) => {
+          {allProducts?.length > 0 &&
+            allProducts.map((product, index) => {
               return (
                 <Box key={product.name}>
                   <CartProduct
@@ -63,6 +80,9 @@ export const Cart: React.FC<cartInterface> = ({ updateCart }) => {
                     image={product.image}
                     index={index}
                     update={setAllProducts}
+                    stock={product.stock}
+                    code={product.code}
+                    getCartProducts={getCartProducts}
                   />
                   <Divider />
                 </Box>

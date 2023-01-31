@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -12,18 +12,19 @@ import {
 } from "@mui/material";
 import { Search, ShoppingCart, AccountCircle } from "@mui/icons-material/";
 import { navbarInterface } from "../assets/products-JSON";
-
 import swagCharm from "../assets/swagcharm.png";
+import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
 
 export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
   const menu = ["All products", "Packaging", "Drinkware", "Apparel", "Notebooks", "Backpacks"];
+  let navigate = useNavigate();
 
   return (
     <AppBar position="static" sx={{ boxShadow: 0 }}>
       <Toolbar className="search-bar">
         <Typography variant="h6" component="div" sx={{ marginLeft: "60px", flexGrow: 0.1 }}>
-          <Box className="nav-image">
+          <Box className="nav-image" onClick={() => navigate("/")}>
             <img src={swagCharm} />
           </Box>
         </Typography>
@@ -44,8 +45,13 @@ export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
             >
               <AccountCircle /> Sign in
             </Button>
+
             <Badge badgeContent={totalProducts} color="error">
-              <Button color="inherit" style={{ textTransform: "capitalize" }}>
+              <Button
+                color="inherit"
+                style={{ textTransform: "capitalize" }}
+                onClick={() => navigate("/cart")}
+              >
                 <ShoppingCart />
                 Cart
               </Button>
@@ -72,6 +78,7 @@ export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
                   fontSize: "15px",
                   color: "#535C67",
                 }}
+                onClick={() => navigate("/")}
               >
                 {section}
               </Button>
