@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.home-product-container {
+  /* border: 1px solid black; */
+  background-color: #E6E8E9;
+  border-radius: 8px;
+
+}
+
+.home-product-image>img {
+  width: 244px;
+  height: 244px;
+}
+
+.home-product-first-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-produt-price {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 22px;
+  padding-left: 10px;
+}
+
+.home-product-stock {
+  padding-right: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  color: grey;
+}
+
+.home-product-title {
+  color: #666;
+  font-size: 17px;
+  line-height: 17px;
+  padding: 10px;
+}
+
+.home-product-container>Button {
+  /* width: 100%; */
+  font-family: 'Open Sans';
+  color: white;
+  width: 336px;
+  height: 48px;
+  margin-top: 23px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 8px;
+}

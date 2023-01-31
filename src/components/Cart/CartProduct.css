@@ -73,11 +73,13 @@
 
 .edit-pack,
 .remove-pack {
+
   height: 30px;
   display: flex;
   align-items: center;
   font-weight: 600;
   font-size: 12px;
+
 }
 
 .remove-pack,
@@ -85,6 +87,11 @@
   padding-left: 10px;
   align-items: center;
   justify-content: center;
+}
+
+.remove-pack,
+.remove-product {
+  cursor: pointer;
 }
 
 .remove-product {
