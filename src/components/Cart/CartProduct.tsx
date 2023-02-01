@@ -30,6 +30,11 @@ export const CartProduct: React.FC<CartProductProps> = ({
 
   const handleNewQuantity = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
+    //"!" at the end to indicate that wont be null
+    let product: any = JSON.parse(storage.getItem(code)!);
+    product = { ...product, quantity: e.target.value };
+    storage.setItem(code, JSON.stringify(product));
+
     setNewQuantity(Number(e.target.value));
     setFormattedTotal(parseNumber(Number(e.target.value) * price));
 
