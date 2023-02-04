@@ -2,11 +2,12 @@ import longShirt from "../assets/long-shirt.png";
 import shirt from "../assets/shirt.png";
 import backpack from "../assets/backpack.png";
 import christmas from "../assets/christmas.png";
+import { State } from "../../Reducer";
 export interface navbarInterface {
   totalProducts: number;
 }
 export interface cartInterface {
-  updateCart: Function;
+  state: State;
 }
 export interface CartProductProps {
   name: string;
@@ -34,7 +35,6 @@ export interface ProductLayout {
 export const products = [
   {
     name: "My christmas pack",
-    /* quantity: 50, */
     content: [
       { name: "Cardboard box", type: "container" },
       { name: "Unisex Short Sleeve T-Shirt", type: "Green, Small" },
@@ -104,6 +104,12 @@ export interface HomeProductLayout {
   name: string;
   code: string;
   content?: Array<{ name: string; type: string }>;
-  setCartProducts: Function;
   stock: number;
+}
+
+export function parseNumber(number: number) {
+  return Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "USD",
+  }).format(number);
 }
