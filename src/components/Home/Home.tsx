@@ -1,11 +1,10 @@
 import React from "react";
-import { Box, Alert } from "@mui/material";
-
+import { Box } from "@mui/material";
 import { HomeProduct } from "./HomeProduct";
 import { products, cartInterface as homeInterface } from "../assets/products-JSON";
 import "./Home.css";
 
-export const Home: React.FC<homeInterface> = ({ updateCart }) => {
+export const Home: React.FC = () => {
   return (
     <Box className="home-container">
       <span className="cart-title">Best sellers</span>
@@ -20,7 +19,6 @@ export const Home: React.FC<homeInterface> = ({ updateCart }) => {
                   content={product.content}
                   price={product.price}
                   image={product.image}
-                  setCartProducts={updateCart}
                   stock={product.stock}
                 />
               </Box>
