@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useMemo, useContext } from "react";
 import { Box, Divider, NativeSelect } from "@mui/material";
 import { DeleteForever } from "@mui/icons-material/";
 import "./CartProduct.css";
@@ -16,29 +16,34 @@ export const CartProduct: React.FC<CartProductProps> = ({
   stock,
   code,
 }) => {
-  const { dispatch } = useContext(DataContext);
-  const [newQuantity, setNewQuantity] = useState(quantity);
-  //useMemo on this:
+  const { state, dispatch } = useContext(DataContext);
+  const total = parseNumber(state.productsInCart.get(code)?.quantity! * price);
+
   const handleNewQuantity = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
       type: ActionTypes.MODIFY_PRODUCT_PROPERTY,
       payload: { code, property: ["quantity", e.target.value] },
     });
-    setNewQuantity(Number(e.target.value));
   };
+
+  //  useMemo() avoids mapping the Array in every re-render as long as the stock of the Product doesn't change
+  const maxQuantity = useMemo(() => {
+    const display = [...Array(stock)].map((item, index) => {
+      console.log("re render");
+      return (
+        <option key={index + "quantity"} value={index + 1}>
+          {index + 1}
+        </option>
+      );
+    });
+    return display;
+  }, [state.productsInCart.get(code)?.stock]);
 
   const quantityHandler = () => {
     return (
       <Box>
         <NativeSelect defaultValue={quantity} onChange={handleNewQuantity}>
-          {quantity > 0 &&
-            [...Array(stock)].map((max, index) => {
-              return (
-                <option key={index + "quantity"} value={index + 1}>
-                  {index + 1}
-                </option>
-              );
-            })}
+          {quantity > 0 && maxQuantity}
         </NativeSelect>
       </Box>
     );
@@ -101,7 +106,7 @@ export const CartProduct: React.FC<CartProductProps> = ({
       <Box className="cart-product-value-container">
         <Box className="cart-product-value">
           <h3>{parseNumber(price)}</h3>
-          <h3>Total: {parseNumber(newQuantity * price)}</h3>
+          <h3>Total: {total}</h3>
         </Box>
       </Box>
     </Box>

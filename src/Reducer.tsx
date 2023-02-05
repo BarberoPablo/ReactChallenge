@@ -78,10 +78,8 @@ export function reducer(state: State, action: Action): State {
       if (code && propertyKey) {
         const newProducts = state.productsInCart;
         const oldProperties = state.productsInCart.get(code);
-        console.log("old", oldProperties);
         if (oldProperties) {
           newProducts.set(code, { ...oldProperties, [propertyKey]: propertyValue });
-          console.log("newProducts", newProducts.get(code));
           return {
             ...state,
             productsInCart: newProducts,
