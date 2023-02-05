@@ -29,7 +29,6 @@ export const CartProduct: React.FC<CartProductProps> = ({
   //  useMemo() avoids mapping the Array in every re-render as long as the stock of the Product doesn't change
   const maxQuantity = useMemo(() => {
     const display = [...Array(stock)].map((item, index) => {
-      console.log("re render");
       return (
         <option key={index + "quantity"} value={index + 1}>
           {index + 1}
@@ -38,16 +37,6 @@ export const CartProduct: React.FC<CartProductProps> = ({
     });
     return display;
   }, [state.productsInCart.get(code)?.stock]);
-
-  const quantityHandler = () => {
-    return (
-      <Box>
-        <NativeSelect defaultValue={quantity} onChange={handleNewQuantity}>
-          {quantity > 0 && maxQuantity}
-        </NativeSelect>
-      </Box>
-    );
-  };
 
   const handleRemove = () => {
     dispatch({ type: ActionTypes.REMOVE_PRODUCT_FROM_CART, payload: code });
@@ -64,7 +53,15 @@ export const CartProduct: React.FC<CartProductProps> = ({
         <h3>{name}</h3>
         <Box className="cart-product-quantity">
           <span>Quantity: </span>
-          <span style={{ marginLeft: "5px", marginTop: "-3px" }}>{quantityHandler()}</span>
+          <span style={{ marginLeft: "5px", marginTop: "-3px" }}>
+            {
+              <Box>
+                <NativeSelect defaultValue={quantity} onChange={handleNewQuantity}>
+                  {quantity > 0 && maxQuantity}
+                </NativeSelect>
+              </Box>
+            }
+          </span>
         </Box>
 
         <ul className="cart-product-content">
