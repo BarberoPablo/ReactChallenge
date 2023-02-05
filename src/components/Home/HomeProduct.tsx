@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Box, Button, Alert } from "@mui/material";
-import { HomeProductLayout } from "../assets/products-JSON";
-import { parseNumber } from "../assets/products-JSON";
+import React, { useContext } from "react";
+import { Box, Button } from "@mui/material";
+import { HomeProductLayout } from "../assets/types";
+import { parseNumber } from "../assets/utils";
 import "./HomeProduct.css";
-import { ActionTypes } from "../../Reducer";
-import { DispatchContext } from "../../Reducer";
+import { ActionTypes, DataContext } from "../../context/DataContext";
 
 export const HomeProduct: React.FC<HomeProductLayout> = ({
   image,
@@ -16,8 +15,8 @@ export const HomeProduct: React.FC<HomeProductLayout> = ({
 }) => {
   const parsedPrice = parseNumber(price);
 
-  //  Destructuring of both DispatchContext props
-  const { state, dispatch } = React.useContext(DispatchContext);
+  //  Destructuring of both DataContext props
+  const { state, dispatch } = useContext(DataContext);
 
   if (!dispatch) {
     throw new Error("Dispatch function not found in context");

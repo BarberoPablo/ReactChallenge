@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useReducer, createContext } from "react";
+//This file could be modularized
 
 // An enum with all the types of actions to use in our reducer
 export interface Product {
@@ -52,7 +53,8 @@ export const initialState: State = {
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
     case ActionTypes.ADD_PRODUCT_TO_CART: {
-      if (action.payload?.code) {
+      const code = action.payload.code;
+      if (code && !state.productsInCart.get(code)) {
         return {
           ...state,
           productsInCart: state.productsInCart.set(action.payload.code, action.payload),
@@ -97,7 +99,8 @@ export function reducer(state: State, action: Action): State {
   }
 }
 
-export const DispatchContext = React.createContext<{
+//  DataContext will be consumed by the components inside DataProvider
+export const DataContext = createContext<{
   state: State;
   dispatch: React.Dispatch<Action>;
 }>({
@@ -105,9 +108,15 @@ export const DispatchContext = React.createContext<{
   dispatch: () => {},
 });
 
-/*  Some other ways to declare DispatchContext: (when we have more than 1 parameter state and dispatch)TS
-const DispatchContext = React.createContext({} as { state: State; dispatch: React.Dispatch<Action> });
+//  DataProvider will create the context so every component inside has access to the DataContext
+export const DataProvider = ({ children }: any) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return <DataContext.Provider value={{ state, dispatch }}>{children}</DataContext.Provider>;
+};
 
-    If we only want tohave acces to dispatch and not the state, we can do:
-  export const DispatchContext = React.createContext<React.Dispatch<Action> | undefined>(undefined);
+/*  Some other ways to declare DataContext: (when we have more than 1 parameter state and dispatch)TS
+const DataContext = React.createContext({} as { state: State; dispatch: React.Dispatch<Action> });
+
+    If we only want to have access to dispatch and not the state, we can do:
+  export const DataContext = React.createContext<React.Dispatch<Action> | undefined>(undefined);
 */

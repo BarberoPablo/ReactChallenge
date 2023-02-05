@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { HomeProduct } from "./HomeProduct";
-import { products } from "../assets/products-JSON";
+import { products } from "../assets/products";
 import "./Home.css";
 
 export const Home: React.FC = () => {

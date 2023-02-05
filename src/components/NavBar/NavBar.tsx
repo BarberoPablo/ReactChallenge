@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,14 +11,15 @@ import {
   Box,
 } from "@mui/material";
 import { Search, ShoppingCart, AccountCircle } from "@mui/icons-material/";
-import { navbarInterface } from "../assets/products-JSON";
 import swagCharm from "../assets/swagcharm.png";
 import { useNavigate } from "react-router-dom";
 import "./NavBar.css";
+import { DataContext } from "../../context/DataContext";
 
-export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
+export const NavBar = () => {
   const menu = ["All products", "Packaging", "Drinkware", "Apparel", "Notebooks", "Backpacks"];
   let navigate = useNavigate();
+  const { state } = useContext(DataContext);
 
   return (
     <AppBar position="static" sx={{ boxShadow: 0 }}>
@@ -46,7 +47,7 @@ export const NavBar: React.FC<navbarInterface> = ({ totalProducts }) => {
               <AccountCircle /> Sign in
             </Button>
 
-            <Badge badgeContent={totalProducts} color="error">
+            <Badge badgeContent={state.productsInCart.size} color="error">
               <Button
                 color="inherit"
                 style={{ textTransform: "capitalize" }}

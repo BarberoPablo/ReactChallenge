@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { RecommendedProducts } from "../assets/products-JSON";
+import { RecommendedProducts } from "../assets/types";
 import "./SuggestedProduct.css";
 
 export const SuggestedProduct: React.FC<RecommendedProducts> = ({
