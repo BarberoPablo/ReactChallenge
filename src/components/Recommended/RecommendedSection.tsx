@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import { recommendedProducts, RecommendedProducts } from "../assets/products-JSON";
+import { recommendedProducts } from "../assets/products-JSON";
 import { SuggestedProduct } from "./SuggestedProduct";
 import "./RecommendedSection.css";
 

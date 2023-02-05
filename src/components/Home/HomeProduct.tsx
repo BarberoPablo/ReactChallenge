@@ -15,7 +15,9 @@ export const HomeProduct: React.FC<HomeProductLayout> = ({
   stock,
 }) => {
   const parsedPrice = parseNumber(price);
-  const dispatch = React.useContext(DispatchContext);
+
+  //  Destructuring of both DispatchContext props
+  const { state, dispatch } = React.useContext(DispatchContext);
 
   if (!dispatch) {
     throw new Error("Dispatch function not found in context");

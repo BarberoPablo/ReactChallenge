@@ -2,30 +2,15 @@ import longShirt from "../assets/long-shirt.png";
 import shirt from "../assets/shirt.png";
 import backpack from "../assets/backpack.png";
 import christmas from "../assets/christmas.png";
-import { State } from "../../Reducer";
+
 export interface navbarInterface {
   totalProducts: number;
 }
-export interface cartInterface {
-  state: State;
-}
+
 export interface CartProductProps {
   name: string;
   quantity: number;
   content?: Array<{ name: string; type: string }>;
-  price: number;
-  image: string;
-  index: number;
-  update: Function;
-  stock: number;
-  code: string;
-  getCartProducts: Function;
-}
-
-export interface ProductLayout {
-  name: string;
-  quantity: number;
-  content: Array<any>;
   price: number;
   image: string;
   stock: number;
@@ -71,6 +56,15 @@ export interface RecommendedProducts {
   minimum: number;
 }
 
+export interface HomeProductLayout {
+  image: string;
+  price: number;
+  name: string;
+  code: string;
+  content?: Array<{ name: string; type: string }>;
+  stock: number;
+}
+
 export const recommendedProducts = [
   {
     image: longShirt,
@@ -97,15 +91,6 @@ export const recommendedProducts = [
     minimum: 24,
   },
 ];
-
-export interface HomeProductLayout {
-  image: string;
-  price: number;
-  name: string;
-  code: string;
-  content?: Array<{ name: string; type: string }>;
-  stock: number;
-}
 
 export function parseNumber(number: number) {
   return Intl.NumberFormat("en-IN", {
