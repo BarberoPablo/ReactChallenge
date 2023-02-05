@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Divider } from "@mui/material";
 import { Button } from "@mui/material-next";
-import { parseNumber } from "../assets/products-JSON";
+import { parseNumber } from "../assets/utils";
 import { CartProduct } from "./CartProduct";
 import { RecommendedSection } from "../Recommended/RecommendedSection";
 import "./Cart.css";
-import { DispatchContext } from "../../Reducer";
+import { DataContext } from "../../context/DataContext";
 
 export const Cart: React.FC = () => {
-  const { state } = React.useContext(DispatchContext);
+  const { state } = useContext(DataContext);
   const total = Array.from(state.productsInCart).reduce(
     (total, currentPrice) => total + currentPrice[1].price * currentPrice[1].quantity,
     0

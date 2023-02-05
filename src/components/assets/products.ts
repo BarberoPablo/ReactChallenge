@@ -3,20 +3,6 @@ import shirt from "../assets/shirt.png";
 import backpack from "../assets/backpack.png";
 import christmas from "../assets/christmas.png";
 
-export interface navbarInterface {
-  totalProducts: number;
-}
-
-export interface CartProductProps {
-  name: string;
-  quantity: number;
-  content?: Array<{ name: string; type: string }>;
-  price: number;
-  image: string;
-  stock: number;
-  code: string;
-}
-
 export const products = [
   {
     name: "My christmas pack",
@@ -47,23 +33,7 @@ export const products = [
   },
 ];
 
-export const codes = ["p001", "s001", "b001", "s003"];
-
-export interface RecommendedProducts {
-  image: string;
-  name: string;
-  priceRange: string;
-  minimum: number;
-}
-
-export interface HomeProductLayout {
-  image: string;
-  price: number;
-  name: string;
-  code: string;
-  content?: Array<{ name: string; type: string }>;
-  stock: number;
-}
+export const productsCodes = ["p001", "s001", "b001", "s003"];
 
 export const recommendedProducts = [
   {
@@ -91,10 +61,3 @@ export const recommendedProducts = [
     minimum: 24,
   },
 ];
-
-export function parseNumber(number: number) {
-  return Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "USD",
-  }).format(number);
-}

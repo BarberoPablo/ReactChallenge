@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Box, Divider, NativeSelect } from "@mui/material";
 import { DeleteForever } from "@mui/icons-material/";
 import "./CartProduct.css";
-import { CartProductProps, parseNumber } from "../assets/products-JSON";
+import { CartProductProps } from "../assets/types";
+import { parseNumber } from "../assets/utils";
 
-import { ActionTypes, DispatchContext } from "../../Reducer";
+import { ActionTypes, DataContext } from "../../context/DataContext";
 
 export const CartProduct: React.FC<CartProductProps> = ({
   name,
@@ -15,7 +16,7 @@ export const CartProduct: React.FC<CartProductProps> = ({
   stock,
   code,
 }) => {
-  const { dispatch } = React.useContext(DispatchContext);
+  const { dispatch } = useContext(DataContext);
   const [newQuantity, setNewQuantity] = useState(quantity);
   //useMemo on this:
   const handleNewQuantity = (e: React.ChangeEvent<HTMLSelectElement>) => {
