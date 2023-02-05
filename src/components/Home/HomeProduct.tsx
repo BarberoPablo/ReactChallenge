@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Box, Button, Alert } from "@mui/material";
 import { HomeProductLayout } from "../assets/products-JSON";
-import { parseNumber } from "../Cart/CartProduct";
+import { parseNumber } from "../assets/products-JSON";
 import "./HomeProduct.css";
+import { ActionTypes } from "../../Reducer";
+import { DispatchContext } from "../../Reducer";
 
 export const HomeProduct: React.FC<HomeProductLayout> = ({
   image,
@@ -10,37 +12,19 @@ export const HomeProduct: React.FC<HomeProductLayout> = ({
   price,
   code,
   content,
-  setCartProducts,
   stock,
 }) => {
   const parsedPrice = parseNumber(price);
-  const storage = window.localStorage;
-  const [showAlert, setShowAlert] = useState(false);
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    const itemExists = storage.getItem(code);
 
-    if (!itemExists) {
-      storage.setItem(
-        code,
-        JSON.stringify({ name, quantity: 1, content, price, image, stock, code })
-      );
-      setCartProducts((prev: number) => prev + 1);
-    } else {
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 2000);
-    }
-  };
+  //  Destructuring of both DispatchContext props
+  const { state, dispatch } = React.useContext(DispatchContext);
+
+  if (!dispatch) {
+    throw new Error("Dispatch function not found in context");
+  }
 
   return (
     <Box className="home-product-container">
-      {showAlert && (
-        <Alert severity="success" style={{ position: "fixed", top: "20%" }}>
-          Product already added to cart!
-        </Alert>
-      )}
       <Box className="home-product-image">
         <img src={image} alt="Product image" />
       </Box>
@@ -62,7 +46,12 @@ export const HomeProduct: React.FC<HomeProductLayout> = ({
           backgroundColor: "#3A4451",
           width: "100%",
         }}
-        onClick={(e) => handleAddToCart(e)}
+        onClick={() =>
+          dispatch({
+            type: ActionTypes.ADD_PRODUCT_TO_CART,
+            payload: { name, quantity: 1, content, price, image, stock, code },
+          })
+        }
       >
         Add to cart
       </Button>

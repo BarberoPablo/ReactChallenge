@@ -1,36 +1,26 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar/NavBar";
 import { Home } from "./components/Home/Home";
 import { Cart } from "./components/Cart/Cart";
 import { Footer } from "./components/Footer/Footer";
-import { codes } from "./components/assets/products-JSON";
 import "./App.css";
+import { reducer, initialState, DispatchContext } from "./Reducer";
 
 function App() {
-  const storage = window.localStorage;
-  const [totalProducts, setTotalProducts] = useState<number>(oldCart());
-
-  function oldCart(): number {
-    let totalItemsInCart: number = 0;
-
-    codes.forEach((code) => {
-      if (storage.getItem(code)) {
-        totalItemsInCart++;
-      }
-    });
-    return totalItemsInCart;
-  }
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <div className="app-container">
-      <NavBar totalProducts={totalProducts} />
-      <Routes>
-        <Route path="/" element={<Home updateCart={setTotalProducts} />} />
-        <Route path="/cart" element={<Cart updateCart={setTotalProducts} />} />
-      </Routes>
-      <Footer />
-    </div>
+    <DispatchContext.Provider value={{ state, dispatch }}>
+      <div className="app-container">
+        <NavBar totalProducts={state.productsInCart.size} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+        <Footer />
+      </div>
+    </DispatchContext.Provider>
   );
 }
 

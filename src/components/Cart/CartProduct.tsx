@@ -2,14 +2,9 @@ import React, { useState } from "react";
 import { Box, Divider, NativeSelect } from "@mui/material";
 import { DeleteForever } from "@mui/icons-material/";
 import "./CartProduct.css";
-import { CartProductProps } from "../assets/products-JSON";
+import { CartProductProps, parseNumber } from "../assets/products-JSON";
 
-export function parseNumber(number: number) {
-  return Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "USD",
-  }).format(number);
-}
+import { ActionTypes, DispatchContext } from "../../Reducer";
 
 export const CartProduct: React.FC<CartProductProps> = ({
   name,
@@ -17,47 +12,26 @@ export const CartProduct: React.FC<CartProductProps> = ({
   content,
   price,
   image,
-  index,
-  update,
   stock,
   code,
-  getCartProducts,
 }) => {
-  const [newQuantity, setNewQuantity] = useState<number>(Number(quantity));
-  const formattedPrice = parseNumber(price);
-  const [formattedTotal, setFormattedTotal] = useState(parseNumber(newQuantity * price));
-  const storage = window.localStorage;
-
+  const { dispatch } = React.useContext(DispatchContext);
+  const [newQuantity, setNewQuantity] = useState(quantity);
+  //useMemo on this:
   const handleNewQuantity = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    e.preventDefault();
-    //"!" at the end to indicate that wont be null
-    let product: any = JSON.parse(storage.getItem(code)!);
-    product = { ...product, quantity: e.target.value };
-    storage.setItem(code, JSON.stringify(product));
-
+    dispatch({
+      type: ActionTypes.MODIFY_PRODUCT_PROPERTY,
+      payload: { code, property: ["quantity", e.target.value] },
+    });
     setNewQuantity(Number(e.target.value));
-    setFormattedTotal(parseNumber(Number(e.target.value) * price));
-
-    update((prevState: Array<Object>) =>
-      prevState.map((item, ind) => {
-        return ind === index ? { ...item, quantity: e.target.value } : item;
-      })
-    );
   };
 
   const quantityHandler = () => {
     return (
       <Box>
-        <NativeSelect
-          defaultValue={quantity}
-          inputProps={{
-            name: "age",
-            id: "uncontrolled-native",
-          }}
-          onChange={handleNewQuantity}
-        >
+        <NativeSelect defaultValue={quantity} onChange={handleNewQuantity}>
           {quantity > 0 &&
-            [...Array(stock)].map((max: number, index: number) => {
+            [...Array(stock)].map((max, index) => {
               return (
                 <option key={index + "quantity"} value={index + 1}>
                   {index + 1}
@@ -69,10 +43,8 @@ export const CartProduct: React.FC<CartProductProps> = ({
     );
   };
 
-  const handleRemove = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-    e.preventDefault();
-    storage.removeItem(code);
-    getCartProducts();
+  const handleRemove = () => {
+    dispatch({ type: ActionTypes.REMOVE_PRODUCT_FROM_CART, payload: code });
   };
 
   return (
@@ -102,7 +74,6 @@ export const CartProduct: React.FC<CartProductProps> = ({
         </ul>
 
         <Box className="edit-remove-pack-container">
-          {/* buttons instead of h5 */}
           {content?.length ? (
             <Box className="edit-pack">
               <span> Edit pack </span>
@@ -114,12 +85,12 @@ export const CartProduct: React.FC<CartProductProps> = ({
                 flexItem
               />
 
-              <span className="remove-pack" onClick={(e) => handleRemove(e)}>
+              <span className="remove-pack" onClick={handleRemove}>
                 Remove
               </span>
             </Box>
           ) : (
-            <span className="remove-product" onClick={(e) => handleRemove(e)}>
+            <span className="remove-product" onClick={handleRemove}>
               <DeleteForever /> Remove
             </span>
           )}
@@ -128,8 +99,8 @@ export const CartProduct: React.FC<CartProductProps> = ({
 
       <Box className="cart-product-value-container">
         <Box className="cart-product-value">
-          <h3>{formattedPrice}</h3>
-          <h3>Total: {formattedTotal}</h3>
+          <h3>{parseNumber(price)}</h3>
+          <h3>Total: {parseNumber(newQuantity * price)}</h3>
         </Box>
       </Box>
     </Box>
