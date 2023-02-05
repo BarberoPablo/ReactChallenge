@@ -11,12 +11,12 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
-    <DispatchContext.Provider value={dispatch}>
+    <DispatchContext.Provider value={{ state, dispatch }}>
       <div className="app-container">
         <NavBar totalProducts={state.productsInCart.size} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart state={state} />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
         <Footer />
       </div>
