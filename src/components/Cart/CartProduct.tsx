@@ -17,7 +17,7 @@ export const CartProduct: React.FC<CartProductProps> = ({
   code,
 }) => {
   const { state, dispatch } = useContext(DataContext);
-  const total = parseNumber(state.productsInCart.get(code)?.quantity! * price);
+  const total = parseNumber(quantity * price);
 
   const handleNewQuantity = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({
