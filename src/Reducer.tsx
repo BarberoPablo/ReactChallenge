@@ -14,13 +14,13 @@ export interface Product {
 export enum ActionTypes {
   ADD_PRODUCT_TO_CART = "ADD_PRODUCT_TO_CART",
   REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART",
-  GET_PRODUCTS_FROM_CART = "GET_PRODUCTS_FROM_CART",
+  MODIFY_PRODUCT_PROPERTY = "MODIFY_PRODUCT_PROPERTY",
 }
 
 // An interface for our actions
 export interface Action {
   type: ActionTypes;
-  payload?: Product;
+  payload?: any; // How could I handle ADD, REMOVE and MODIFY without "any"? They dispatch different types
 }
 
 // An interface for our state, a Map instead of an array so its faster to find duplicates
@@ -51,28 +51,65 @@ export const initialState: State = {
 
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case ActionTypes.ADD_PRODUCT_TO_CART:
+    case ActionTypes.ADD_PRODUCT_TO_CART: {
       if (action.payload?.code) {
         return {
           ...state,
           productsInCart: state.productsInCart.set(action.payload.code, action.payload),
         };
       }
-    case ActionTypes.REMOVE_PRODUCT_FROM_CART:
-      if (action.payload?.code) {
+    }
+    case ActionTypes.REMOVE_PRODUCT_FROM_CART: {
+      const code = action.payload;
+      if (code) {
         const filteredProducts = state.productsInCart;
-        filteredProducts.delete(action.payload.code);
+        filteredProducts.delete(code);
         return {
           ...state,
           productsInCart: filteredProducts,
         };
       }
-    case ActionTypes.GET_PRODUCTS_FROM_CART:
-      console.log("State:", state);
-      return state;
+    }
+    case ActionTypes.MODIFY_PRODUCT_PROPERTY: {
+      const code = action.payload?.code;
+      const propertyKey = action.payload?.property[0];
+      const propertyValue = action.payload?.property[1];
+
+      if (code && propertyKey) {
+        const newProducts = state.productsInCart;
+        const oldProperties = state.productsInCart.get(code);
+        console.log("old", oldProperties);
+        if (oldProperties) {
+          newProducts.set(code, { ...oldProperties, [propertyKey]: propertyValue });
+          console.log("newProducts", newProducts.get(code));
+          return {
+            ...state,
+            productsInCart: newProducts,
+          };
+        } else {
+          return {
+            ...state,
+          };
+        }
+      }
+    }
+
     default:
       throw new Error();
   }
 }
 
-export const DispatchContext = React.createContext<React.Dispatch<Action> | undefined>(undefined);
+export const DispatchContext = React.createContext<{
+  state: State;
+  dispatch: React.Dispatch<Action>;
+}>({
+  state: initialState,
+  dispatch: () => {},
+});
+
+/*  Some other ways to declare DispatchContext: (when we have more than 1 parameter state and dispatch)TS
+const DispatchContext = React.createContext({} as { state: State; dispatch: React.Dispatch<Action> });
+
+    If we only want tohave acces to dispatch and not the state, we can do:
+  export const DispatchContext = React.createContext<React.Dispatch<Action> | undefined>(undefined);
+*/
