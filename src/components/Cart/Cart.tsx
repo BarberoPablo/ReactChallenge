@@ -9,6 +9,7 @@ import { DataContext } from "../../context/DataContext";
 
 export const Cart: React.FC = () => {
   const { state } = useContext(DataContext);
+  //  [1] to access the value and not the key of the Map element
   const total = Array.from(state.productsInCart).reduce(
     (total, currentPrice) => total + currentPrice[1].price * currentPrice[1].quantity,
     0
