@@ -16,11 +16,7 @@ export const HomeProduct: React.FC<HomeProductLayout> = ({
   const parsedPrice = parseNumber(price);
 
   //  Destructuring of both DataContext props
-  const { state, dispatch } = useContext(DataContext);
-
-  if (!dispatch) {
-    throw new Error("Dispatch function not found in context");
-  }
+  const { dispatch } = useContext(DataContext);
 
   return (
     <Box className="home-product-container">
